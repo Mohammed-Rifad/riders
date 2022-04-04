@@ -1,1 +1,1 @@
-web: gunicorn riders_admin.wsgi --log-file -
+web: gunicorn Riders.wsgi --log-file -
