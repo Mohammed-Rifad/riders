@@ -17,4 +17,4 @@ def login(request):
     return render(request,'login.html',{'authenticated':authenticated})
 
 def dashboard(request):
-    return render(request,'dashboard.html')
+    return render(request,'add_expense.html')
