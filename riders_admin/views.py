@@ -1,5 +1,7 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
+from datetime import datetime
 # Create your views here.
 
 
@@ -18,3 +20,16 @@ def login(request):
 
 def dashboard(request):
     return render(request,'add_expense.html')
+
+def add_expense(request):
+    name=request.POST['n']
+    dt=request.POST['dt']
+    amount=request.POST['amt']
+
+    print(name,amount,dt)
+    obj=datetime.strptime(dt,'%Y-%m-%d')
+    new_date=str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
+    data=Expense(name=name,dt=new_date,amount=amount)
+    data.save()
+    status='Expense Added'
+    return JsonResponse({'status':status})

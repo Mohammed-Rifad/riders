@@ -284,23 +284,35 @@
               </nav>
             </div>
             <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <form >
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Date</label>
-                      <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="select date">
+              
+                <table style="border-spacing: 10px;border-collapse: separate;margin-left: 40px;">
+                    <tr>
+                        <td>Date : </td>
+                        <td><input class="form-control" type="date" placeholder="select date" name="dt" id="dt"></td>
+                    </tr>
+                    <tr>
+                        <td>Name : </td>
+                        <td><input class="form-control" type="text" placeholder="enter name" name="n" id="n"></td>
+                    </tr>
+                    <tr>
+                        <td>Amount : </td>
+                        <td><input class="form-control" type="number" placeholder="enter date" min="1" name="amt" id="amt"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="col-md-4 stretch-card grid-margin">
+                    <div id="st" class="alert alert-danger alert-dismissible fade show" style="width: 700px;height: 46px;display: none;">
+                      <strong class="text-center" id="msg"></strong> 
                       
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Name</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Amount</label>
-                        <input type="number" min=0 class="form-control" id="exampleInputPassword1" placeholder="enter amount">
-                      </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                   
+               
                   </form>
+                  
               </div>
               <div class="col-md-4 stretch-card grid-margin">
                 
@@ -337,5 +349,31 @@
     <!-- Custom js for this page -->
     <script src="{% static  'assets/js/dashboard.js' %}"></script>
     <script src="{% static  'assets/js/todolist.js' %}"></script>
+    <script>
+        $("#submit").click(function(){
+            date=$("#dt").val()
+            name=$("#n").val()
+            amount=$('#amt').val()
+            $.ajaxSetup({
+            headers: {
+              "X-CSRFToken":'{{csrf_token}}'
+            }
+        })
+        $.ajax({
+            url: 'add-expense',
+            type: 'POST',
+            data: {
+                dt:date,
+                n:name,
+                amt:amount
+            },
+            success:function(response){
+                $('#st').css('display','block')
+               $('#msg').html(response.status)
+               $('#st').delay(2000).css('display','none')
+            }
+        });
+        })
+    </script>
   </body>
 </html>
