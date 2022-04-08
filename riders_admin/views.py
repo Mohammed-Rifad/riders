@@ -40,8 +40,8 @@ def add_expense(request):
     return render(request,'add_expense.html')
 
 def view_expense(request):
-    data_set = 0
-    print('***************************')
+    data_set = Expense.objects.all()
+     
     if request.method == 'POST':
         dt = request.POST['date']
         obj = datetime.strptime(dt, '%Y-%m-%d')

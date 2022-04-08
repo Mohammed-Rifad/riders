@@ -298,24 +298,14 @@
                       </tr>
                     </thead>
                     <tbody>
+                        {% for e in expenses %}
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{e.name|title}}</td>
+                          <td>{{e.dt}}</td>
+                          <td>{{e.amount}} Rs</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td style='width: 200px;'>the  Birthe Bir</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                  
