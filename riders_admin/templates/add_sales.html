@@ -310,8 +310,9 @@
                     </tr>
                 </table>
                 <div class="col-md-4 stretch-card grid-margin" style='margin-top:20px'>
-                    <div id="st" class="alert alert-danger alert-dismissible fade show" style="width: 100%;height: 46px;display: block;">
-                      <strong class="text-center" id="msg" >iuui</strong> 
+
+                    <div id="st" class="alert alert-success alert-dismissible fade show" style="width: 100%;height: 46px;display: block; margin-left: 20px;padding-left: 80px;">
+                      
                       
                   </div>
                    
@@ -378,11 +379,12 @@
               },
             success:function(response){
               var msg=document.getElementById('st')
-              msg.setAttribute('style','display:block')
+              
+              msg.setAttribute('style','display:block;margin-left: 20px;padding-left: 80px;width:100%')
               msg.innerHTML=response.status
               setTimeout(()=>{
                 msg.setAttribute('style','display:none')
-              },1200)
+              },1500)
               
             }
               
