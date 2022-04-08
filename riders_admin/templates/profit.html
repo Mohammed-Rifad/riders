@@ -1,5 +1,5 @@
 {% extends 'master.html' %}
-{% load mathfilters %}
+ 
 
 {% block content %}
  
@@ -43,7 +43,7 @@
                                     <td>{{data.dt}}</td>
                                     <td>Rs {{data.cp}}</td> 
                                     <td>Rs {{data.sp}}</td> 
-                                    <td>Rs {{data.sp|sub:data.cp }}</td>
+                                     
                                 </tr>
                                 {% endfor %}
                             </tbody>
