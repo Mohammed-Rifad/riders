@@ -43,7 +43,7 @@ def view_expense(request):
     data_set = Expense.objects.all()
      
     if request.method == 'POST':
-        dt = request.POST['date']
+        dt = request.POST['search_date']
         obj = datetime.strptime(dt, '%Y-%m-%d')
         search_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
         data_set = Expense.objects.filter(dt=search_date)

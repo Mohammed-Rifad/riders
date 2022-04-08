@@ -284,10 +284,24 @@
               </nav>
             </div>
             <div class="row">
-              
-              <div class="col-md-4 stretch-card grid-margin">
-                
-                <table class="table table-responsive-md table-primary table-hover">
+                <div class="col-md-12">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <table style="border-spacing:10px;border-collapse: separate;">
+                        <tr>
+                            <td>Filter Date</td>
+                            <td><input type="date" class="form-control" name="search_date" id=""></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Search" class="btn btn-primary" name="" id=""></td>
+                        </tr>
+                    </table>
+                  </form>
+                </div>
+              <div class="col-md-4 stretch-card grid-margin"  >
+               
+                <table class="table table-responsive-md table-responsive-sm table-primary table-hover">
                      
                     <thead>
                       <tr>
@@ -303,7 +317,7 @@
                           <td>{{forloop.counter}}</td>
                           <td>{{e.name|title}}</td>
                           <td>{{e.dt}}</td>
-                          <td>{{e.amount}} Rs</td>
+                          <td>Rs {{e.amount}}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
