@@ -7,15 +7,18 @@ from datetime import datetime
 
 def login(request):
     authenticated = True
+    if 'autherisation_id' in request.session:
+        return render(request, 'dashboard.html')
     if request.method == 'POST':
         name = request.POST['user_name']
         passwd = request.POST['user_passwd']
         is_authenticated = Admin.objects.filter(
             user_name=name, user_passwd=passwd).exists()
         if is_authenticated:
+            request.session['autherisation_id']='049172'
             return redirect('dashboard')
         else:
-            print('Not')
+            
             authenticated = False
     return render(request, 'login.html', {'authenticated': authenticated})
 
@@ -38,6 +41,19 @@ def add_expense(request):
         status = 'Expense Added'
         return JsonResponse({'status': status})
     return render(request, 'add_expense.html')
+
+def add_sales(request):
+    if request.method=='POST':
+        # sname = request.POST['sname'].lower()
+        # dt = request.POST['dt']
+        # cp = request.POST['cp'] 
+        # sp = request.POST['sp'] 
+        # data=Sales(name=sname,dt=dt,cost_price=cp,selling_price=sp)
+        # data.save()
+        status = 'Sales Added'
+        print('***********************')
+        return JsonResponse({'status': status})
+    return render(request,'add_sales.html')
 
 
 def view_expense(request):

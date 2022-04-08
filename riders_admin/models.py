@@ -10,3 +10,9 @@ class Expense(models.Model):
     name=models.CharField(max_length=30)
     dt=models.CharField(max_length=20)
     amount=models.FloatField()
+
+class Sales(models.Model):
+    name=models.CharField(max_length=30)
+    dt=models.CharField(max_length=20) 
+    cost_price=models.FloatField()
+    selling_price=models.FloatField()

@@ -284,81 +284,46 @@
               </nav>
             </div>
             <div class="row">
-              <a href='/add-expense' style='text-decoration:none'>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Add Expenses <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">$ 15,0000</h2>
-                    <h6 class="card-text">Increased by 60%</h6>
+              
+                <table style="border-spacing: 10px;border-collapse: separate;margin-left: 10px;position: relative;top: 20px;">
+                    <tr>
+                        <td>Cost Price : </td>
+                        <td><input class="form-control" type="number" required min=1  placeholder="cost price" name="cp" id="cp"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Sale : </td>
+                        <td><input class="form-control" type="text" placeholder="enter name" required name="sname" id="sname"></td>
+                    </tr>
+                    <tr>
+                        <td>Selling Price : </td>
+                        <td><input class="form-control" type="number" required min=1 placeholder="selling prie" min="1" name="sp" id="sp"></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td><input class="form-control" type="date" required min=1    name="dt" id="dt"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="col-md-4 stretch-card grid-margin" style='margin-top:20px'>
+                    <div id="st" class="alert alert-danger alert-dismissible fade show" style="width: 700px;height: 46px;display: none;">
+                      <strong class="text-center" id="msg" >jhghgghg</strong> 
+                      
                   </div>
-                </div>
+                   
+               
+                  </form>
+                  
               </div>
-            </a>
               <div class="col-md-4 stretch-card grid-margin">
                 
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <a href='/view-expense' style='text-decoration:none;color:white'>
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">View Expenses <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                    <h6 class="card-text">Decreased by 10%</h6>
-                  </div>
-                </a>
-                </div>
-           
               </div>
               <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                  <a href='/add-sales' style='text-decoration:none;color:white'>
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Add Sales <i class="mdi mdi-diamond mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">95,5741</h2>
-                    <h6 class="card-text">Increased by 5%</h6>
-                  </div>
-                </a>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Add Expenses <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">$ 15,0000</h2>
-                    <h6 class="card-text">Increased by 60%</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Add Sales <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                    <h6 class="card-text">Decreased by 10%</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">View Sales <i class="mdi mdi-diamond mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">95,5741</h2>
-                    <h6 class="card-text">Increased by 5%</h6>
-                  </div>
-                </div>
+                
               </div>
             </div>
             
@@ -389,5 +354,42 @@
     <!-- Custom js for this page -->
     <script src="{% static  'assets/js/dashboard.js' %}"></script>
     <script src="{% static  'assets/js/todolist.js' %}"></script>
+    <script>
+        $("#submit").click(function(){
+             
+            dt=$("#dt").val()
+            sname=$("#sname").val()
+            sp=$('#sp').val()
+            cp=$('#cp').val()
+            
+            $.ajaxSetup({
+            headers: {
+              "X-CSRFToken":'{{csrf_token}}'
+            }})
+
+            $.ajax({
+              url: 'add-sales',
+              type: 'POST',
+              data: {
+                dt: dt,
+                sname: sname,
+                sp: sp,
+                cp:cp
+              },
+            success:function(response){
+              var msg=document.getElementById('st')
+              msg.setAttribute('style','display:block')
+              msg.innerHTML=response.status
+              setTimeout(()=>{
+                msg.setAttribute('style','display:none')
+              },1200)
+              
+            }
+              
+              
+        })
+
+      });
+    </script>
   </body>
 </html>
