@@ -1,6 +1,8 @@
+from msilib import datasizemask
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
+from django.db.models import Sum
 from datetime import datetime
 # Create your views here.
 
@@ -79,7 +81,9 @@ def view_expense(request):
 
 def view_sales(request):
     data_set = Sales.objects.all()
-    total = 0
+    profit = 0
+    total_sales=0
+    actual_price=0
     show_total = False
     if request.method == 'POST':
 
@@ -91,7 +95,16 @@ def view_sales(request):
             data_set = Sales.objects.filter(dt=search_date)
 
             for i in data_set:
-                total += i.amount
+                total_sales+=i.selling_price
+                actual_price+=i.cost_price
+            profit=total_sales-actual_price
             show_total = True
-    return render(request, 'view_sales.html', {'expenses': data_set, 'total': total,
-                                                  'show_total': show_total})
+            print(total_sales,' ',actual_price)
+    return render(request, 'view_sales.html', {'expenses': data_set,  
+                                                  'profit': profit,'show_total':show_total})
+                                                
+                                            
+def Profit(request):
+    data_set=Sales.objects .values( 'dt').annotate(sp=Sum('selling_price'),cp=Sum('cost_price')).order_by()
+    print(data_set)
+    return render(request,'profit.html',{'data_set':data_set})
