@@ -44,14 +44,16 @@ def add_expense(request):
 
 def add_sales(request):
     if request.method=='POST':
-        # sname = request.POST['sname'].lower()
-        # dt = request.POST['dt']
-        # cp = request.POST['cp'] 
-        # sp = request.POST['sp'] 
-        # data=Sales(name=sname,dt=dt,cost_price=cp,selling_price=sp)
-        # data.save()
+        sname = request.POST['sname'].lower()
+        dt = request.POST['dt']
+        cp = request.POST['cp'] 
+        sp = request.POST['sp'] 
+        obj = datetime.strptime(dt, '%Y-%m-%d')
+        new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
+        data=Sales(name=sname,dt=new_date,cost_price=cp,selling_price=sp)
+        data.save()
         status = 'Sales Added'
-        print('***********************')
+        
         return JsonResponse({'status': status})
     return render(request,'add_sales.html')
 
@@ -73,4 +75,23 @@ def view_expense(request):
                 total += i.amount
             show_total = True
     return render(request, 'view_expenses.html', {'expenses': data_set, 'total': total,
+                                                  'show_total': show_total})
+
+def view_sales(request):
+    data_set = Sales.objects.all()
+    total = 0
+    show_total = False
+    if request.method == 'POST':
+
+        dt = request.POST['search_date']
+        if dt != '':
+
+            obj = datetime.strptime(dt, '%Y-%m-%d')
+            search_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
+            data_set = Sales.objects.filter(dt=search_date)
+
+            for i in data_set:
+                total += i.amount
+            show_total = True
+    return render(request, 'view_sales.html', {'expenses': data_set, 'total': total,
                                                   'show_total': show_total})
