@@ -25,8 +25,8 @@ def dashboard(request):
 
 
 def add_expense(request):
-    if request.method=='POST':
-        name = request.POST['n']
+    if request.method == 'POST':
+        name = request.POST['n'].lower()
         dt = request.POST['dt']
         amount = request.POST['amt']
 
@@ -37,17 +37,24 @@ def add_expense(request):
         data.save()
         status = 'Expense Added'
         return JsonResponse({'status': status})
-    return render(request,'add_expense.html')
+    return render(request, 'add_expense.html')
+
 
 def view_expense(request):
     data_set = Expense.objects.all()
-     
+    total = 0
+    show_total = False
     if request.method == 'POST':
-        
+
         dt = request.POST['search_date']
-        if dt!='':
+        if dt != '':
 
             obj = datetime.strptime(dt, '%Y-%m-%d')
             search_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
             data_set = Expense.objects.filter(dt=search_date)
-    return render(request, 'view_expenses.html', {'expenses': data_set})
+
+            for i in data_set:
+                total += i.amount
+            show_total = True
+    return render(request, 'view_expenses.html', {'expenses': data_set, 'total': total,
+                                                  'show_total': show_total})
